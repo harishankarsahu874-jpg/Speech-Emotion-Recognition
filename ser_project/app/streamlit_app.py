@@ -47,12 +47,10 @@ def main():
 
     try:
         model, le, mean, std = get_model()
-    except Exception:
-        st.warning(
-            "Trained model not found yet. Run `python src/train.py` first "
-            "to train and save the model, then reload this app."
-        )
-        return
+    except Exception as e:
+         st.error(f"Could not load the trained model: {e}")
+         st.exception(e)
+         return
 
     uploaded = st.file_uploader("Upload a .wav audio file", type=["wav"])
 
